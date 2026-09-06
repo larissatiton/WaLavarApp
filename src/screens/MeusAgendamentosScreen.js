@@ -1,13 +1,13 @@
 import {
-  View, Text, TouchableOpacity, Alert, SectionList,
+  View, Text, TouchableOpacity, StyleSheet, Alert, SectionList,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../context/AppContext';
 import StatusChip from '../components/StatusChip';
-import { cores } from '../constants/theme';
+import { cores, bordas } from '../constants/theme';
 import globalStyles from '../styles/globalStyles';
-import styles from '../styles/MeusAgendamentosScreenStyles';
 
-const ICONE_TIPO = { lavadora: '🧺', secadora: '🌀' };
+const ICONE_TIPO = { lavadora: 'water-outline', secadora: 'sync-outline' };
 
 export default function MeusAgendamentosScreen() {
   const { maquinas, meusAgendamentos, minhasFila, cancelarAgendamento, sairDaFila, iniciarCiclo } = useApp();
@@ -54,7 +54,12 @@ export default function MeusAgendamentosScreen() {
   if (secoes.length === 0) {
     return (
       <View style={[globalStyles.tela, styles.vazio]}>
-        <Text style={styles.vazioIcone}>📋</Text>
+        <Ionicons
+          name="clipboard-outline"
+          size={48}
+          color={cores.cinzaSuave}
+          style={styles.vazioIcone}
+        />
         <Text style={styles.vazioTexto}>Nenhum agendamento ou fila ativa.</Text>
       </View>
     );
@@ -75,9 +80,14 @@ export default function MeusAgendamentosScreen() {
           return (
             <View style={styles.card}>
               <View style={styles.cardTop}>
-                <Text style={styles.cardNome}>
-                  {ICONE_TIPO[tipoMaquina(item.maquinaId)]} {nomeMaquina(item.maquinaId)}
-                </Text>
+                <View style={styles.cardNomeLinha}>
+                  <Ionicons
+                    name={ICONE_TIPO[tipoMaquina(item.maquinaId)]}
+                    size={18}
+                    color={cores.azulPrimario}
+                  />
+                  <Text style={styles.cardNome}>{nomeMaquina(item.maquinaId)}</Text>
+                </View>
                 <View style={[styles.badge, { backgroundColor: cores.laranjaUso }]}>
                   <Text style={styles.badgeTexto}>Fila {item.posicao}º</Text>
                 </View>
@@ -102,9 +112,14 @@ export default function MeusAgendamentosScreen() {
         return (
           <View style={styles.card}>
             <View style={styles.cardTop}>
-              <Text style={styles.cardNome}>
-                {ICONE_TIPO[tipoMaquina(item.maquinaId)]} {nomeMaquina(item.maquinaId)}
-              </Text>
+              <View style={styles.cardNomeLinha}>
+                <Ionicons
+                  name={ICONE_TIPO[tipoMaquina(item.maquinaId)]}
+                  size={18}
+                  color={cores.azulPrimario}
+                />
+                <Text style={styles.cardNome}>{nomeMaquina(item.maquinaId)}</Text>
+              </View>
               <StatusChip status={item.status} />
             </View>
             <Text style={styles.cardHorario}>Hoje às {item.horario}</Text>
@@ -138,3 +153,106 @@ export default function MeusAgendamentosScreen() {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  secao: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: cores.azulEscuro,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginTop: 14,
+    marginBottom: 8,
+  },
+  card: {
+    backgroundColor: cores.branco,
+    borderWidth: 1,
+    borderColor: cores.azulAgua,
+    borderRadius: bordas.lg,
+    padding: 12,
+    marginBottom: 10,
+  },
+  cardTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  cardNomeLinha: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  cardNome: {
+    fontWeight: '700',
+    fontSize: 15,
+    color: cores.cinzaTexto,
+  },
+  cardHorario: {
+    fontSize: 13,
+    color: cores.cinzaSuave,
+  },
+  acoes: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 10,
+  },
+  badge: {
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  badgeTexto: {
+    color: cores.branco,
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  btnPrimario: {
+    backgroundColor: cores.azulPrimario,
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+  },
+  btnPrimarioTexto: {
+    color: cores.branco,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  btnOutline: {
+    borderWidth: 1.5,
+    borderColor: cores.azulPrimario,
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+  },
+  btnOutlineTexto: {
+    color: cores.azulPrimario,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  btnPerigo: {
+    borderWidth: 1.5,
+    borderColor: cores.vermelhoReserv,
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+  },
+  btnPerigoTexto: {
+    color: cores.vermelhoReserv,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  vazio: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  vazioIcone: {
+    marginBottom: 12,
+  },
+  vazioTexto: {
+    color: cores.cinzaSuave,
+    fontSize: 15,
+    textAlign: 'center',
+  },
+});

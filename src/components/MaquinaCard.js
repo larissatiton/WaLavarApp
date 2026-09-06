@@ -1,14 +1,19 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { cores, bordas } from '../constants/theme';
 import StatusChip from './StatusChip';
 
-const ICONE = { lavadora: '🧺', secadora: '🌀' };
+const ICONE = { lavadora: 'water-outline', secadora: 'sync-outline' };
 
 export default function MaquinaCard({ maquina, onPress }) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.75}>
       <View style={styles.iconeBox}>
-        <Text style={styles.icone}>{ICONE[maquina.tipo]}</Text>
+        <Ionicons
+          name={ICONE[maquina.tipo]}
+          size={24}
+          color={cores.azulPrimario}
+        />
       </View>
       <View style={styles.info}>
         <Text style={styles.nome}>{maquina.nome}</Text>
@@ -37,7 +42,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  icone: { fontSize: 22 },
   info: { flex: 1 },
   nome: {
     fontWeight: '700',

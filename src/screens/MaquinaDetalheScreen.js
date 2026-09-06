@@ -1,8 +1,8 @@
-import { View, Text, FlatList, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Alert } from 'react-native';
 import { useApp } from '../context/AppContext';
 import SlotItem from '../components/SlotItem';
+import { cores } from '../constants/theme';
 import globalStyles from '../styles/globalStyles';
-import styles from '../styles/MaquinaDetalheScreenStyles';
 
 export default function MaquinaDetalheScreen({ route, navigation }) {
   const { maquinaId } = route.params;
@@ -56,3 +56,11 @@ export default function MaquinaDetalheScreen({ route, navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  subtitulo: {
+    fontSize: 13,
+    color: cores.cinzaSuave,
+    marginBottom: 12,
+  },
+});

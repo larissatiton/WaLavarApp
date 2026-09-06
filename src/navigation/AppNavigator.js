@@ -2,6 +2,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
 import { cores } from '../constants/theme';
 import HomeScreen from '../screens/HomeScreen';
@@ -71,8 +72,8 @@ export default function AppNavigator() {
           tabBarInactiveTintColor: cores.cinzaSuave,
           tabBarStyle: { borderTopColor: '#e6edf3' },
           tabBarIcon: ({ color, size }) => {
-            const icone = route.name === 'Maquinas' ? '🧺' : '📅';
-            return <Text style={{ fontSize: size - 4 }}>{icone}</Text>;
+            const icone = route.name === 'Maquinas' ? 'water-outline' : 'calendar-outline';
+            return <Ionicons name={icone} size={size} color={color} />;
           },
         })}>
         <Tab.Screen

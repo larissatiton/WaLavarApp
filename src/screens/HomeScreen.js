@@ -1,9 +1,8 @@
-import { View, Text, SectionList, ActivityIndicator } from 'react-native';
+import { View, Text, SectionList, StyleSheet, ActivityIndicator } from 'react-native';
 import { useApp } from '../context/AppContext';
 import MaquinaCard from '../components/MaquinaCard';
 import { cores } from '../constants/theme';
 import globalStyles from '../styles/globalStyles';
-import styles from '../styles/HomeScreenStyles';
 
 export default function HomeScreen({ navigation }) {
   const { maquinas, carregando } = useApp();
@@ -44,3 +43,20 @@ export default function HomeScreen({ navigation }) {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  secao: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: cores.azulEscuro,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginTop: 14,
+    marginBottom: 8,
+  },
+});

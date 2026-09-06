@@ -20,8 +20,8 @@ export async function solicitarPermissao() {
 export async function notificarInicio(nomeMaquina) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'WaLavar 💧',
-      body: `Sua lavagem começou 🧺 na ${nomeMaquina}.`,
+      title: 'WaLavar',
+      body: `Sua lavagem começou na ${nomeMaquina}.`,
     },
     trigger: null, // disparo imediato
   });
@@ -30,8 +30,8 @@ export async function notificarInicio(nomeMaquina) {
 export async function notificarTermino(nomeMaquina) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'WaLavar 💧',
-      body: `Sua roupa terminou! ✅ Retire da ${nomeMaquina}.`,
+      title: 'WaLavar',
+      body: `Sua roupa terminou! Retire da ${nomeMaquina}.`,
     },
     trigger: { seconds: DURACAO_CICLO_MS / 1000 },
   });
