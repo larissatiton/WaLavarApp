@@ -1,7 +1,7 @@
 {
   "name": "walavar-app",
   "version": "1.0.0",
-  "main": "App.js",
+  "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -13,6 +13,7 @@
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
+    "babel-preset-expo": "~57.0.0",
     "expo": "^57.0.20",
     "expo-notifications": "~57.0.17",
     "expo-status-bar": "~57.0.1",
