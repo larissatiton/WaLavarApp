@@ -33,6 +33,9 @@ export async function notificarTermino(nomeMaquina) {
       title: 'WaLavar',
       body: `Sua roupa terminou! Retire da ${nomeMaquina}.`,
     },
-    trigger: { seconds: DURACAO_CICLO_MS / 1000 },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+      seconds: DURACAO_CICLO_MS / 1000,
+    },
   });
 }
