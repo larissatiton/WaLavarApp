@@ -1,6 +1,7 @@
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useApp } from '../context/AppContext';
-import { cores, espacos, bordas } from '../constants/theme';
+import globalStyles from '../styles/globalStyles';
+import styles from '../styles/FilaEsperaScreenStyles';
 
 export default function FilaEsperaScreen({ route, navigation }) {
   const { maquinaId, horario, maquinaNome } = route.params;
@@ -28,7 +29,9 @@ export default function FilaEsperaScreen({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={globalStyles.tela}
+      contentContainerStyle={globalStyles.conteudo}>
       {/* Posição na fila ou botão para entrar */}
       {meuItem ? (
         <View style={styles.posicaoBox}>
@@ -48,12 +51,11 @@ export default function FilaEsperaScreen({ route, navigation }) {
       {filaAtual.length === 0 ? (
         <Text style={styles.vazio}>Nenhuma pessoa na fila ainda.</Text>
       ) : (
-        <FlatList
-          data={filaAtual}
-          keyExtractor={item => item.id}
-          scrollEnabled={false}
-          renderItem={({ item }) => (
-            <View style={[styles.item, item.usuario === USUARIO && styles.itemEu]}>
+        <View>
+          {filaAtual.map(item => (
+            <View
+              key={item.id}
+              style={[styles.item, item.usuario === USUARIO && styles.itemEu]}>
               <View style={styles.numBox}>
                 <Text style={styles.numTexto}>{item.posicao}</Text>
               </View>
@@ -64,8 +66,8 @@ export default function FilaEsperaScreen({ route, navigation }) {
                 <Text style={styles.euTag}>← você</Text>
               )}
             </View>
-          )}
-        />
+          ))}
+        </View>
       )}
 
       <Text style={styles.aviso}>
@@ -77,114 +79,6 @@ export default function FilaEsperaScreen({ route, navigation }) {
           <Text style={styles.btnSairTexto}>Sair da fila</Text>
         </TouchableOpacity>
       )}
-    </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: cores.branco,
-    padding: espacos.md,
-  },
-  posicaoBox: {
-    backgroundColor: cores.azulPrimario,
-    borderRadius: bordas.lg,
-    padding: 24,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  posNum: {
-    fontSize: 46,
-    fontWeight: '800',
-    color: cores.branco,
-    lineHeight: 52,
-  },
-  posLabel: {
-    fontSize: 12,
-    color: cores.branco,
-    opacity: 0.9,
-    marginTop: 4,
-  },
-  secao: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: cores.azulEscuro,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 10,
-  },
-  vazio: {
-    color: cores.cinzaSuave,
-    fontSize: 13,
-    textAlign: 'center',
-    marginVertical: 16,
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  itemEu: {
-    backgroundColor: cores.azulAgua,
-    borderRadius: 10,
-    borderBottomWidth: 0,
-  },
-  numBox: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    backgroundColor: cores.azulAgua,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  numTexto: {
-    fontWeight: '700',
-    fontSize: 12,
-    color: cores.azulEscuro,
-  },
-  itemNome: {
-    fontSize: 13,
-    color: cores.cinzaTexto,
-    flex: 1,
-  },
-  euTag: {
-    fontSize: 11,
-    color: cores.azulPrimario,
-    fontWeight: '700',
-  },
-  aviso: {
-    textAlign: 'center',
-    fontSize: 13,
-    color: cores.cinzaSuave,
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  btnEntrar: {
-    backgroundColor: cores.azulPrimario,
-    borderRadius: bordas.md,
-    padding: 14,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  btnEntrarTexto: {
-    color: cores.branco,
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  btnSair: {
-    borderWidth: 1.5,
-    borderColor: cores.vermelhoReserv,
-    borderRadius: bordas.md,
-    padding: 14,
-    alignItems: 'center',
-  },
-  btnSairTexto: {
-    color: cores.vermelhoReserv,
-    fontSize: 15,
-    fontWeight: '700',
-  },
-});

@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useApp } from '../context/AppContext';
-import { cores, espacos, bordas } from '../constants/theme';
+import globalStyles from '../styles/globalStyles';
+import styles from '../styles/ConfirmarAgendamentoScreenStyles';
 
 export default function ConfirmarAgendamentoScreen({ route, navigation }) {
   const { maquinaId, horario, maquinaNome } = route.params;
@@ -16,7 +17,9 @@ export default function ConfirmarAgendamentoScreen({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={globalStyles.tela}
+      contentContainerStyle={globalStyles.conteudo}>
       <Text style={styles.icone}>🧺</Text>
 
       <View style={styles.resumo}>
@@ -45,62 +48,6 @@ export default function ConfirmarAgendamentoScreen({ route, navigation }) {
       <TouchableOpacity style={styles.btnConfirmar} onPress={confirmar}>
         <Text style={styles.btnConfirmarTexto}>Confirmar agendamento</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: cores.branco,
-    padding: espacos.md,
-  },
-  icone: {
-    fontSize: 52,
-    textAlign: 'center',
-    marginVertical: 18,
-  },
-  resumo: {
-    backgroundColor: cores.azulAgua,
-    borderRadius: bordas.lg,
-    padding: 18,
-    marginBottom: 16,
-  },
-  linha: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cfe1f5',
-  },
-  linhaFinal: {
-    borderBottomWidth: 0,
-  },
-  chave: {
-    color: cores.cinzaSuave,
-    fontSize: 14,
-  },
-  valor: {
-    fontWeight: '700',
-    fontSize: 14,
-    color: cores.cinzaTexto,
-  },
-  aviso: {
-    textAlign: 'center',
-    fontSize: 13,
-    color: cores.cinzaSuave,
-    paddingHorizontal: 10,
-    marginBottom: 24,
-  },
-  btnConfirmar: {
-    backgroundColor: cores.azulPrimario,
-    borderRadius: bordas.md,
-    padding: 14,
-    alignItems: 'center',
-  },
-  btnConfirmarTexto: {
-    color: cores.branco,
-    fontSize: 15,
-    fontWeight: '700',
-  },
-});

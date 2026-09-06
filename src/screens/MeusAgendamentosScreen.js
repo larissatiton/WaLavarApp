@@ -1,9 +1,11 @@
 import {
-  View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, SectionList,
+  View, Text, TouchableOpacity, Alert, SectionList,
 } from 'react-native';
 import { useApp } from '../context/AppContext';
 import StatusChip from '../components/StatusChip';
-import { cores, espacos, bordas } from '../constants/theme';
+import { cores } from '../constants/theme';
+import globalStyles from '../styles/globalStyles';
+import styles from '../styles/MeusAgendamentosScreenStyles';
 
 const ICONE_TIPO = { lavadora: '🧺', secadora: '🌀' };
 
@@ -51,8 +53,8 @@ export default function MeusAgendamentosScreen() {
 
   if (secoes.length === 0) {
     return (
-      <View style={styles.vazio}>
-        <Text style={styles.vaziIcone}>📋</Text>
+      <View style={[globalStyles.tela, styles.vazio]}>
+        <Text style={styles.vazioIcone}>📋</Text>
         <Text style={styles.vazioTexto}>Nenhum agendamento ou fila ativa.</Text>
       </View>
     );
@@ -60,9 +62,10 @@ export default function MeusAgendamentosScreen() {
 
   return (
     <SectionList
+      style={globalStyles.tela}
       sections={secoes}
       keyExtractor={item => item.id}
-      contentContainerStyle={styles.lista}
+      contentContainerStyle={globalStyles.conteudo}
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.secao}>{title}</Text>
       )}
@@ -135,109 +138,3 @@ export default function MeusAgendamentosScreen() {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  lista: {
-    padding: espacos.md,
-    flexGrow: 1,
-    backgroundColor: cores.branco,
-  },
-  secao: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: cores.azulEscuro,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginTop: 14,
-    marginBottom: 8,
-  },
-  card: {
-    backgroundColor: cores.branco,
-    borderWidth: 1,
-    borderColor: cores.azulAgua,
-    borderRadius: bordas.lg,
-    padding: 12,
-    marginBottom: 10,
-  },
-  cardTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  cardNome: {
-    fontWeight: '700',
-    fontSize: 15,
-    color: cores.cinzaTexto,
-    flex: 1,
-  },
-  cardHorario: {
-    fontSize: 13,
-    color: cores.cinzaSuave,
-  },
-  acoes: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 10,
-  },
-  badge: {
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-  },
-  badgeTexto: {
-    color: cores.branco,
-    fontSize: 11,
-    fontWeight: '700',
-  },
-  btnPrimario: {
-    backgroundColor: cores.azulPrimario,
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-  },
-  btnPrimarioTexto: {
-    color: cores.branco,
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  btnOutline: {
-    borderWidth: 1.5,
-    borderColor: cores.azulPrimario,
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-  },
-  btnOutlineTexto: {
-    color: cores.azulPrimario,
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  btnPerigo: {
-    borderWidth: 1.5,
-    borderColor: cores.vermelhoReserv,
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-  },
-  btnPerigoTexto: {
-    color: cores.vermelhoReserv,
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  vazio: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: cores.branco,
-  },
-  vaziIcone: {
-    fontSize: 48,
-    marginBottom: 12,
-  },
-  vazioTexto: {
-    color: cores.cinzaSuave,
-    fontSize: 15,
-    textAlign: 'center',
-  },
-});

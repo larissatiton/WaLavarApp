@@ -1,14 +1,16 @@
-import { View, Text, SectionList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, SectionList, ActivityIndicator } from 'react-native';
 import { useApp } from '../context/AppContext';
 import MaquinaCard from '../components/MaquinaCard';
-import { cores, espacos } from '../constants/theme';
+import { cores } from '../constants/theme';
+import globalStyles from '../styles/globalStyles';
+import styles from '../styles/HomeScreenStyles';
 
 export default function HomeScreen({ navigation }) {
   const { maquinas, carregando } = useApp();
 
   if (carregando) {
     return (
-      <View style={styles.loading}>
+      <View style={[globalStyles.tela, styles.loading]}>
         <ActivityIndicator size="large" color={cores.azulPrimario} />
       </View>
     );
@@ -21,9 +23,10 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SectionList
+      style={globalStyles.tela}
       sections={secoes}
       keyExtractor={item => item.id}
-      contentContainerStyle={styles.lista}
+      contentContainerStyle={globalStyles.conteudo}
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.secao}>{title}</Text>
       )}
@@ -41,26 +44,3 @@ export default function HomeScreen({ navigation }) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  loading: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: cores.branco,
-  },
-  lista: {
-    padding: espacos.md,
-    backgroundColor: cores.branco,
-    flexGrow: 1,
-  },
-  secao: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: cores.azulEscuro,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginTop: 14,
-    marginBottom: 8,
-  },
-});

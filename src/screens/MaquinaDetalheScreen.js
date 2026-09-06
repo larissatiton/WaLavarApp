@@ -1,7 +1,8 @@
-import { View, Text, FlatList, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { useApp } from '../context/AppContext';
 import SlotItem from '../components/SlotItem';
-import { cores, espacos } from '../constants/theme';
+import globalStyles from '../styles/globalStyles';
+import styles from '../styles/MaquinaDetalheScreenStyles';
 
 export default function MaquinaDetalheScreen({ route, navigation }) {
   const { maquinaId } = route.params;
@@ -34,11 +35,12 @@ export default function MaquinaDetalheScreen({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.tela}>
       <FlatList
+        style={globalStyles.tela}
         data={slotsDaMaquina}
         keyExtractor={item => item.id}
-        contentContainerStyle={styles.lista}
+        contentContainerStyle={globalStyles.conteudo}
         ListHeaderComponent={
           <Text style={styles.subtitulo}>Horários disponíveis hoje</Text>
         }
@@ -54,18 +56,3 @@ export default function MaquinaDetalheScreen({ route, navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: cores.branco,
-  },
-  lista: {
-    padding: espacos.md,
-  },
-  subtitulo: {
-    fontSize: 13,
-    color: cores.cinzaSuave,
-    marginBottom: 12,
-  },
-});
