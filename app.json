@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "WaLavar",
+    "slug": "walavar-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.walavar.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1565C0"
+      },
+      "package": "com.walavar.app"
+    },
+    "plugins": [
+      "expo-notifications",
+      "expo-status-bar"
+    ]
+  }
+}
